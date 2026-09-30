@@ -1,0 +1,17 @@
+{
+  "name": "civicconnect-backend",
+  "version": "0.1.0",
+  "description": "CivicConnect backend (Node.js, Express, PostgreSQL) - modular monolith",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  }
+}
