@@ -1,5 +1,7 @@
-.vs/
-bin/
-obj/
+node_modules/
 .env
-*.log
+.claude/
+.cursor/
+.agents/
+.devin/
+.vs/
