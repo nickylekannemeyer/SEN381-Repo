@@ -1,7 +1,5 @@
-node_modules/
-.env
-.claude/
-.cursor/
-.agents/
-.devin/
 .vs/
+bin/
+obj/
+.env
+*.log
