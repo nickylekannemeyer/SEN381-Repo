@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CivicConnect</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="glass-panel auth-card">
+            <!-- Header & Logo -->
+            <div class="auth-header">
+                <div class="logo">
+                    <span class="material-symbols-outlined icon-blue" style="font-size: 40px;">location_city</span>
+                </div>
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Sign in to your CivicConnect account</p>
+            </div>
+
+            <!-- Login Form -->
+            <form>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                        <label>Password</label>
+                        <a href="forgot-password.html" class="view-link" style="font-size: 12px;">Forgot password?</a>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px; margin-bottom: 32px;">
+                    <input type="checkbox" id="remember" style="width: 16px; height: 16px; accent-color: var(--primary-blue);">
+                    <label for="remember" style="font-weight: 400; margin: 0;">Remember me for 30 days</label>
+                </div>
+
+                <!-- UPDATED: Button now redirects to index.html -->
+                <button type="button" class="btn-primary" onclick="window.location.href='index.html'" style="width: 100%; justify-content: center; font-size: 16px;">
+                    Sign In
+                </button>
+            </form>
+
+            <!-- Footer Link -->
+            <div class="auth-footer">
+                <p style="color: var(--text-muted); font-size: 14px; text-align: center;">
+                    <!-- UPDATED: Link now points to register.html -->
+                    Don't have an account? <a href="register.html" class="view-link" style="font-weight: 500;">Create one here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

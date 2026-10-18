@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicConnect Dashboard</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <!-- Modern Font and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="material-symbols-outlined icon-blue">location_city</span>
+                <h2>CivicConnect</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item active"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+                <a href="submit-request.html" class="nav-item"><span class="material-symbols-outlined">add_box</span> Submit Request</a>
+                <a href="my-requests.html" class="nav-item"><span class="material-symbols-outlined">list_alt</span> My Requests</a>
+                <a href="messages.html" class="nav-item"><span class="material-symbols-outlined">mail</span> Messages</a>
+                <a href="settings.html" class="nav-item"><span class="material-symbols-outlined">settings</span> Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header glass-panel">
+                <div class="header-left">
+                    <h3>City of Cape Town Portal</h3>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <span class="material-symbols-outlined">search</span>
+                        <input type="text" placeholder="Search requests...">
+                    </div>
+                    <span class="material-symbols-outlined icon-btn">notifications</span>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Nickyle+Kannemeyer&background=0D8ABC&color=fff" alt="User">
+                        <div class="user-info">
+                            <strong>Nickyle Kannemeyer</strong>
+                            <span>Citizen</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Welcome & Action -->
+            <div class="dashboard-header">
+                <div>
+                    <h1>Welcome back, Nickyle!</h1>
+                    <p class="subtitle">Submit, track, and manage your community service requests</p>
+                </div>
+                <button class="btn-primary">
+                    <span class="material-symbols-outlined">add</span> Submit New Request
+                </button>
+            </div>
+
+            <!-- Metrics Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card glass-panel">
+                    <div class="metric-icon blue"><span class="material-symbols-outlined">analytics</span></div>
+                    <div class="metric-data">
+                        <span class="metric-label">Total Requests</span>
+                        <span class="metric-value">5</span>
+                    </div>
+                </div>
+                <div class="metric-card glass-panel highlight-card">
+                    <div class="metric-icon yellow"><span class="material-symbols-outlined">folder_open</span></div>
+                    <div class="metric-data">
+                        <span class="metric-label">Open</span>
+                        <span class="metric-value">2</span>
+                    </div>
+                </div>
+                <div class="metric-card glass-panel">
+                    <div class="metric-icon orange"><span class="material-symbols-outlined">pending_actions</span></div>
+                    <div class="metric-data">
+                        <span class="metric-label">In Progress</span>
+                        <span class="metric-value">1</span>
+                    </div>
+                </div>
+                <div class="metric-card glass-panel">
+                    <div class="metric-icon green"><span class="material-symbols-outlined">check_circle</span></div>
+                    <div class="metric-data">
+                        <span class="metric-label">Resolved</span>
+                        <span class="metric-value">2</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Table & Timeline -->
+            <div class="content-grid">
+                <!-- Data Table -->
+                <div class="table-container glass-panel">
+                    <div class="table-header">
+                        <h2>My Recent Requests</h2>
+                        <div class="table-filters">
+                            <button class="filter-btn active">All</button>
+                            <button class="filter-btn">Active</button>
+                            <button class="filter-btn">Resolved</button>
+                        </div>
+                    </div>
+                    <table class="requests-table">
+                        <thead>
+                            <tr>
+                                <th>REQ ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Last Updated</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#REQ-2026-084</td>
+                                <td>Pothole on Beach Road</td>
+                                <td><span class="material-symbols-outlined table-icon">edit_road</span> Roads & Streets</td>
+                                <td><span class="badge badge-progress">IN PROGRESS</span></td>
+                                <td>Oct 18, 2026</td>
+                                <td><a href="#" class="view-link">View track</a></td>
+                            </tr>
+                            <tr>
+                                <td>#REQ-2026-085</td>
+                                <td>Broken Streetlight</td>
+                                <td><span class="material-symbols-outlined table-icon">lightbulb</span> Electricity</td>
+                                <td><span class="badge badge-open">OPEN</span></td>
+                                <td>Oct 17, 2026</td>
+                                <td><a href="#" class="view-link">View track</a></td>
+                            </tr>
+                            <tr>
+                                <td>#REQ-2026-081</td>
+                                <td>Trash dumping in park</td>
+                                <td><span class="material-symbols-outlined table-icon">delete</span> Waste Management</td>
+                                <td><span class="badge badge-resolved">RESOLVED</span></td>
+                                <td>Oct 12, 2026</td>
+                                <td><a href="#" class="view-link">View track</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Activity Timeline -->
+                <div class="timeline-container glass-panel">
+                    <h2>Recent Activity</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot dot-blue"></div>
+                            <div class="timeline-content">
+                                <span class="time">Today, 11:30 AM</span>
+                                <p>Request <strong>#REQ-2026-084</strong> status updated to <strong>IN PROGRESS</strong>.</p>
+                                <span class="assignee">(Assigned to Staff A.)</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot dot-gray"></div>
+                            <div class="timeline-content">
+                                <span class="time">Yesterday, 09:15 AM</span>
+                                <p>Request <strong>#REQ-2026-085</strong> OPENED by citizen John Doe.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot dot-green"></div>
+                            <div class="timeline-content">
+                                <span class="time">Oct 15, 04:00 PM</span>
+                                <p>Request <strong>#REQ-2026-081</strong> RESOLVED by Inspector.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

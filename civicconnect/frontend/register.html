@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CivicConnect</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="glass-panel auth-card" style="max-width: 540px;">
+            <!-- Header & Logo -->
+            <div class="auth-header">
+                <div class="logo">
+                    <span class="material-symbols-outlined icon-blue" style="font-size: 40px;">person_add</span>
+                </div>
+                <h2>Create an Account</h2>
+                <p class="subtitle">Join the Cape Town CivicConnect portal</p>
+            </div>
+
+            <!-- Registration Form -->
+            <form action="#">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" class="form-control" placeholder="e.g. John Doe" required>
+                </div>
+                
+                <div class="form-row" style="margin-bottom: 24px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Email Address *</label>
+                        <input type="email" class="form-control" placeholder="name@email.com" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control" placeholder="082 123 4567">
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 32px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Password *</label>
+                        <input type="password" class="form-control" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Confirm Password *</label>
+                        <input type="password" class="form-control" placeholder="Confirm password" required>
+                    </div>
+                </div>
+
+                <div class="form-group" style="flex-direction: row; align-items: flex-start; gap: 8px; margin-bottom: 32px;">
+                    <input type="checkbox" id="terms" style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--primary-blue);" required>
+                    <label for="terms" style="font-weight: 400; margin: 0; line-height: 1.4;">
+                        I agree to the <a href="terms-of-service.html" class="view-link">Terms of Service</a> and <a href="privacy-policy.html" class="view-link">Privacy Policy</a>.
+                    </label>
+                </div>
+
+                <button type="button" class="btn-primary" style="width: 100%; justify-content: center; font-size: 16px;">
+                    Create Account
+                </button>
+            </form>
+
+            <!-- Footer Link -->
+            <div class="auth-footer">
+                <p style="color: var(--text-muted); font-size: 14px; text-align: center;">
+                    Already have an account? <a href="login.html" class="view-link" style="font-weight: 500;">Sign in here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
