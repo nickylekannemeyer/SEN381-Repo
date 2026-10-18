@@ -32,8 +32,21 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: "22" }
       - run: npm install
-      - name: Full suite incl. API tests against PostgreSQL
+      - name: Full suite incl. API + EP/BVA + E2E against PostgreSQL
         run: npm test
+
+  static-and-security:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: civicconnect/backend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: npm install
+      - name: Static analysis (ESLint) - blocks on error
+        run: npm run lint
+      - name: Dependency / security audit - blocks on high or critical
+        run: npm audit --audit-level=high
 
   frontend-build:
     runs-on: ubuntu-latest

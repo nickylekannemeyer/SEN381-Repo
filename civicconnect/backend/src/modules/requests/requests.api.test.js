@@ -93,4 +93,37 @@ test('request API (requires a database)', { skip: !hasDb }, async (t) => {
     assert.strictEqual(b.status, 200);
     assert.strictEqual(b.body.idempotent, true);
   });
+
+  // Black-box: equivalence partitioning + boundary value analysis on the submit input
+  // limits (title <= 200, description <= 2000). The boundary is the value where the
+  // behaviour changes, tested just-at and just-over (FR-001).
+  await t.test('submit input boundaries: title 200 ok, 201 rejected; description 2000 ok, 2001 rejected (EP/BVA, FR-001)', async () => {
+    const base = { category: 'Maintenance' };
+    const post = (body) => request(app).post('/api/requests').set('x-user-id', String(requester)).send(body);
+    assert.strictEqual((await post({ ...base, title: 'a'.repeat(200), description: 'd' })).status, 201); // upper valid boundary
+    assert.strictEqual((await post({ ...base, title: 'a'.repeat(201), description: 'd' })).status, 400); // just over -> invalid
+    assert.strictEqual((await post({ ...base, title: 't', description: 'd'.repeat(2000) })).status, 201); // upper valid boundary
+    assert.strictEqual((await post({ ...base, title: 't', description: 'd'.repeat(2001) })).status, 400); // just over -> invalid
+  });
+
+  // End-to-end critical journey: a requester submits, a staff member accepts and drives the
+  // full lifecycle to a terminal state, and management can see it. Exercises the whole stack
+  // (HTTP -> service -> domain -> PostgreSQL) across roles, with the audit history verified.
+  await t.test('E2E: requester submit -> staff lifecycle Open->In Progress->Resolved->Closed -> history + management view', async () => {
+    const sub = await request(app).post('/api/requests').set('x-user-id', String(requester))
+      .send({ title: 'E2E pothole', description: 'deep pothole', category: 'Maintenance' });
+    assert.strictEqual(sub.status, 201);
+    let { id, version } = sub.body.data;
+    await request(app).patch(`/api/requests/${id}/assign`).set('x-user-id', String(staff)).send({});
+    for (const target of ['In Progress', 'Resolved', 'Closed']) {
+      const res = await request(app).patch(`/api/requests/${id}/status`).set('x-user-id', String(staff)).send({ target, version });
+      assert.strictEqual(res.status, 200, `transition to ${target}`);
+      assert.strictEqual(res.body.data.status, target);
+      version = res.body.data.version;
+    }
+    const hist = await pool.query('SELECT * FROM request_history WHERE request_id = $1 ORDER BY id', [id]);
+    assert.strictEqual(hist.rows.length, 3); // one audit row per controlled change
+    const mgmt = await request(app).get('/api/requests?status=Closed').set('x-user-id', String(manager));
+    assert.ok(mgmt.body.data.some((r) => r.id === id));
+  });
 });

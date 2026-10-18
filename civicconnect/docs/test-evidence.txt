@@ -1,0 +1,60 @@
+CivicConnect - Automated Test & Quality-Gate Evidence
+=====================================================
+Project : SEN381 CivicConnect (Milestone 3 release candidate)
+Team    : Nickyle Kannemeyer (601754), Juan Cornel Smith (601822), Dylan James Spurrier (602299)
+Captured: 18 October 2026
+Runner  : node --test (Node.js built-in) + supertest
+Env     : Node 22.x ; PostgreSQL 16 (API/E2E suite)
+
+Automated test suite
+--------------------
+3 test files, 26 cases. 13 run WITHOUT a database; the API/E2E suite (13 cases) runs
+AGAINST PostgreSQL. Command: cd civicconnect/backend && npm test
+(set DATABASE_URL to include the API/E2E suite).
+
+  # tests 26
+  # pass  26
+  # fail  0
+  # skipped 0        (0 when DATABASE_URL is set; the API suite skips cleanly without it)
+
+Technique coverage
+------------------
+  State-transition testing .... Request.test.js (lifecycle, valid + invalid moves)
+  Decision-table testing ...... authMiddleware.test.js (role authorization: 401/403/allow)
+  Equivalence partitioning +
+    boundary value analysis ... requests.api.test.js (title 200 ok / 201 reject;
+                                 description 2000 ok / 2001 reject) -- FR-001
+  API/integration testing ..... requests.api.test.js (submit, status change, history row)
+  End-to-end (critical journey) requests.api.test.js x2:
+                                 (1) submit then track a request
+                                 (2) requester submit -> staff Open->In Progress->Resolved->Closed
+                                     -> 3 audit rows -> management view
+  Negative/failure ............ 401 unauthenticated, 403 wrong role, 400 invalid input/transition,
+                                409 stale version (optimistic concurrency)
+
+CI quality gates (.github/workflows/ci.yml, 4 jobs, blocking)
+-------------------------------------------------------------
+  backend-unit        : npm test with no database (13 cases).
+  backend-db          : postgres:16 service, full suite incl. API/EP-BVA/E2E (26 cases).
+  static-and-security : ESLint (static analysis) + `npm audit --audit-level=high`
+                        (dependency/security). A lint error or a high/critical vuln blocks.
+  frontend-build      : builds the React (Vite) app.
+A failing test, a lint error or a high/critical vulnerability fails the job and blocks merge.
+
+Static analysis + security (run locally too)
+--------------------------------------------
+  npm run lint   -> ESLint, 0 errors.
+  npm audit --audit-level=high -> found 0 vulnerabilities.
+
+Performance exercise (PED 6.14)  --  npm run perf
+------------------------------------------------
+Operation : application-layer status-change path (build domain object, State-pattern
+            transition, optimistic version guard, response-view shaping) -- isolates
+            application overhead from database and network latency.
+Workload  : 200 sequential status-change evaluations, single client, no concurrency.
+Environment: Node 22.x (no database required, by design).
+Representative result (re-runnable; sub-millisecond, varies by machine):
+  average ~0.005 ms | p50 ~0.002 ms | p95 ~0.02 ms
+Target    : ASR-4 allows a non-intensive action up to 1000 ms; app overhead is a tiny fraction.
+Does NOT prove: live-database/network latency, concurrent load, or municipal production scale
+            -- recorded as outstanding and as residual risk.
