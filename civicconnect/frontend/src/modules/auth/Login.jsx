@@ -14,15 +14,34 @@ export default function Login({ onLogin }) {
     finally { setLoading(false); }
   };
   return (
-    <section>
-      <h2>Sign in</h2>
-      <p>Seeded accounts (password <code>changeme</code>): requester@, staff@, manager@civicconnect.local</p>
-      <form onSubmit={submit}>
-        <label>Email<input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></label>
-        <label>Password<input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></label>
-        <button type="submit" disabled={loading}>{loading ? 'Signing in…' : 'Sign in'}</button>
-      </form>
-      {error && <p className="error">{error}</p>}
-    </section>
+    <div className="auth-wrapper">
+      <div className="auth-card glass-panel">
+        <div className="auth-header">
+          <span className="material-symbols-outlined icon-blue" style={{ fontSize: 40 }}>location_city</span>
+          <h2>CivicConnect</h2>
+          <p className="subtitle">Sign in to the City of Cape Town service portal</p>
+        </div>
+        <form onSubmit={submit}>
+          <div className="form-group">
+            <label>Email</label>
+            <input className="form-control" type="email" required value={email}
+              onChange={(e) => setEmail(e.target.value)} placeholder="requester@civicconnect.local" />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input className="form-control" type="password" required value={password}
+              onChange={(e) => setPassword(e.target.value)} placeholder="changeme" />
+          </div>
+          <button className="btn-primary" type="submit" disabled={loading}
+            style={{ width: '100%', justifyContent: 'center' }}>
+            {loading ? 'Signing in…' : 'Sign in'}
+          </button>
+        </form>
+        {error && <p className="error">{error}</p>}
+        <p className="subtitle" style={{ fontSize: 12, textAlign: 'center' }}>
+          Seeded accounts (password <code>changeme</code>): requester@, staff@, manager@civicconnect.local
+        </p>
+      </div>
+    </div>
   );
 }
