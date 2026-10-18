@@ -3,7 +3,7 @@ bin/
 obj/
 .env
 *.log
-
 node_modules/
 dist/
-.env
+.vite/
+.DS_Store
