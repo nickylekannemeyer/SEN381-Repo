@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Requests - CivicConnect</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="material-symbols-outlined icon-blue">location_city</span>
+                <h2>CivicConnect</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+                <a href="submit-request.html" class="nav-item"><span class="material-symbols-outlined">add_box</span> Submit Request</a>
+                <a href="my-requests.html" class="nav-item active"><span class="material-symbols-outlined">list_alt</span> My Requests</a>
+                <a href="messages.html" class="nav-item"><span class="material-symbols-outlined">mail</span> Messages</a>
+                <a href="settings.html" class="nav-item"><span class="material-symbols-outlined">settings</span> Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header glass-panel">
+                <div class="header-left"><h3>City of Cape Town Portal</h3></div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <span class="material-symbols-outlined">search</span>
+                        <input type="text" placeholder="Search requests...">
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Nickyle+Kannemeyer&background=0D8ABC&color=fff" alt="User">
+                        <div class="user-info"><strong>Nickyle Kannemeyer</strong><span>Citizen</span></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-header">
+                <div>
+                    <h1>My Requests</h1>
+                    <p class="subtitle">Complete history of all your submitted service requests.</p>
+                </div>
+            </div>
+
+            <!-- Full Page Table -->
+            <div class="table-container glass-panel" style="flex: 1;">
+                <div class="table-header">
+                    <div class="table-filters" style="margin-bottom: 0;">
+                        <button class="filter-btn active">All (5)</button>
+                        <button class="filter-btn">Open (2)</button>
+                        <button class="filter-btn">In Progress (1)</button>
+                        <button class="filter-btn">Closed/Resolved (2)</button>
+                    </div>
+                </div>
+                <table class="requests-table">
+                    <thead>
+                        <tr>
+                            <th>REQ ID</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Date Submitted</th>
+                            <th>Last Updated</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#REQ-2026-084</td>
+                            <td>Pothole on Beach Road</td>
+                            <td>Roads & Streets</td>
+                            <td><span class="badge badge-progress">IN PROGRESS</span></td>
+                            <td>Oct 15, 2026</td>
+                            <td>Oct 18, 2026</td>
+                            <td><a href="#" class="view-link">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#REQ-2026-085</td>
+                            <td>Broken Streetlight on Main St</td>
+                            <td>Electricity & Lighting</td>
+                            <td><span class="badge badge-open">OPEN</span></td>
+                            <td>Oct 17, 2026</td>
+                            <td>Oct 17, 2026</td>
+                            <td><a href="#" class="view-link">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#REQ-2026-081</td>
+                            <td>Trash dumping in local park</td>
+                            <td>Waste & Sanitation</td>
+                            <td><span class="badge badge-resolved">RESOLVED</span></td>
+                            <td>Oct 10, 2026</td>
+                            <td>Oct 12, 2026</td>
+                            <td><a href="#" class="view-link">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#REQ-2026-079</td>
+                            <td>Burst Water Pipe</td>
+                            <td>Water & Sanitation</td>
+                            <td><span class="badge" style="background: rgba(255,255,255,0.1); color: #94a3b8;">CLOSED</span></td>
+                            <td>Oct 05, 2026</td>
+                            <td>Oct 08, 2026</td>
+                            <td><a href="#" class="view-link">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#REQ-2026-070</td>
+                            <td>Fallen Tree on Road</td>
+                            <td>Roads & Streets</td>
+                            <td><span class="badge badge-open">OPEN</span></td>
+                            <td>Oct 01, 2026</td>
+                            <td>Oct 01, 2026</td>
+                            <td><a href="#" class="view-link">View Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

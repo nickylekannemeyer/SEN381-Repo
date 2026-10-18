@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - CivicConnect Settings</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="material-symbols-outlined icon-blue">location_city</span>
+                <h2>CivicConnect</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+                <a href="submit-request.html" class="nav-item"><span class="material-symbols-outlined">add_box</span> Submit Request</a>
+                <a href="my-requests.html" class="nav-item"><span class="material-symbols-outlined">list_alt</span> My Requests</a>
+                <a href="messages.html" class="nav-item"><span class="material-symbols-outlined">mail</span> Messages</a>
+                <a href="settings.html" class="nav-item active"><span class="material-symbols-outlined">settings</span> Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header" style="padding-top: 16px; margin-bottom: 24px;">
+                <h1>Account Settings</h1>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Settings Sub-Navigation -->
+                <div class="settings-nav">
+                    <a href="settings.html" class="settings-nav-item" style="text-decoration: none;">Profile Information</a>
+                    <a href="settings-notifications.html" class="settings-nav-item active" style="text-decoration: none;">Notifications</a>
+                    <a href="settings-security.html" class="settings-nav-item" style="text-decoration: none;">Security & Password</a>
+                    <a href="index.html" class="settings-nav-item" style="color: #ef4444; margin-top: auto; text-decoration: none;">Sign Out</a>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <div class="glass-panel settings-card">
+                        <h3>Notification Preferences</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Choose how and when you want to be notified about your service requests.</p>
+                        
+                        <div class="setting-toggle-row">
+                            <div class="setting-toggle-info">
+                                <h4>Email Notifications</h4>
+                                <p>Receive detailed status updates directly to your inbox.</p>
+                            </div>
+                            <div class="toggle-switch active"></div>
+                        </div>
+                        <div class="setting-toggle-row">
+                            <div class="setting-toggle-info">
+                                <h4>SMS Alerts</h4>
+                                <p>Get quick text messages when a request changes status.</p>
+                            </div>
+                            <div class="toggle-switch active"></div>
+                        </div>
+                        <div class="setting-toggle-row">
+                            <div class="setting-toggle-info">
+                                <h4>Browser Push Notifications</h4>
+                                <p>Show desktop pop-ups when you receive a new message from staff.</p>
+                            </div>
+                            <div class="toggle-switch"></div>
+                        </div>
+                        <div class="setting-toggle-row">
+                            <div class="setting-toggle-info">
+                                <h4>City News & Updates</h4>
+                                <p>Receive occasional updates regarding Cape Town municipal events.</p>
+                            </div>
+                            <div class="toggle-switch"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

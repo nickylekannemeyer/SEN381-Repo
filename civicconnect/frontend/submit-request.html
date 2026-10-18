@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Request - CivicConnect</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <span class="material-symbols-outlined icon-blue">location_city</span>
+                <h2>CivicConnect</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+                <a href="submit-request.html" class="nav-item active"><span class="material-symbols-outlined">add_box</span> Submit Request</a>
+                <a href="my-requests.html" class="nav-item"><span class="material-symbols-outlined">list_alt</span> My Requests</a>
+                <a href="messages.html" class="nav-item"><span class="material-symbols-outlined">mail</span> Messages</a>
+                <a href="settings.html" class="nav-item"><span class="material-symbols-outlined">settings</span> Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header glass-panel">
+                <div class="header-left"><h3>City of Cape Town Portal</h3></div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Nickyle+Kannemeyer&background=0D8ABC&color=fff" alt="User">
+                        <div class="user-info"><strong>Nickyle Kannemeyer</strong><span>Citizen</span></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-header">
+                <div>
+                    <h1>Submit New Request</h1>
+                    <p class="subtitle">Report an issue or request a service from the municipality.</p>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="glass-panel form-card">
+                <form action="my-requests.html">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Request Category *</label>
+                            <select class="form-control" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <option value="roads">Roads & Streets</option>
+                                <option value="electricity">Electricity & Lighting</option>
+                                <option value="water">Water & Sanitation</option>
+                                <option value="waste">Waste Management</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Incident Location *</label>
+                            <input type="text" class="form-control" placeholder="E.g., 12 Beach Road, Mossel Bay" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" class="form-control" placeholder="Brief summary of the issue" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detailed Description *</label>
+                        <textarea class="form-control" placeholder="Provide as much detail as possible to help staff resolve the issue quickly..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Evidence (Optional)</label>
+                        <input type="file" class="form-control" style="padding: 9px 16px;">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Cancel</button>
+                        <button type="submit" class="btn-primary"><span class="material-symbols-outlined">send</span> Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
