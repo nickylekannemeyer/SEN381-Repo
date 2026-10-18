@@ -4,12 +4,18 @@
 const userRepository = require('../users/userRepository');
 
 async function authenticate(req, _res, next) {
-  const id = Number(req.header('x-user-id'));
-  if (id) {
-    const user = await userRepository.findById(id);
-    if (user) req.user = { id: user.id, role: user.role, email: user.email };
+  try {
+    const id = Number(req.header('x-user-id'));
+    if (id) {
+      const user = await userRepository.findById(id);
+      if (user) req.user = { id: user.id, role: user.role, email: user.email };
+    }
+    next();
+  } catch (err) {
+    // A failure here (e.g. the database is unreachable) is forwarded to the central
+    // error handler, which returns a JSON 500, instead of rejecting unhandled.
+    next(err);
   }
-  next();
 }
 
 // authorize() with no roles means "any authenticated user"; with roles it also

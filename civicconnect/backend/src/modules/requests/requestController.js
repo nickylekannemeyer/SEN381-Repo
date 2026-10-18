@@ -23,7 +23,8 @@ async function list(req, res) {
     const scope = req.user.role === roles.REQUESTER ? { requesterId: req.user.id } : {};
     const data = await service.listRequests({
       ...scope, status: req.query.status, category: req.query.category,
-      sort: req.query.sort, order: req.query.order
+      sort: req.query.sort, order: req.query.order,
+      limit: req.query.limit, offset: req.query.offset
     });
     res.json({ data });
   } catch (err) { handle(res, err); }

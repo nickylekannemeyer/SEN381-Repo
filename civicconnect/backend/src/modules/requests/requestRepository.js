@@ -25,14 +25,18 @@ async function findByIdempotencyKey(key) {
   const { rows } = await pool.query('SELECT * FROM requests WHERE idempotency_key = $1', [key]);
   return rows[0] || null;
 }
-async function list({ requesterId, status, category, sort = 'created_at', order = 'desc' } = {}) {
+async function list({ requesterId, status, category, sort = 'created_at', order = 'desc', limit, offset } = {}) {
   const where = []; const params = [];
   if (requesterId !== undefined && requesterId !== null) { params.push(requesterId); where.push(`requester_id = $${params.length}`); }
   if (status !== undefined && status !== null && status !== '') { params.push(status); where.push(`status = $${params.length}`); }
   if (category !== undefined && category !== null && category !== '') { params.push(category); where.push(`category = $${params.length}`); }
   const col = SORT_COLUMNS[sort] || 'created_at';
   const dir = order === 'asc' ? 'ASC' : 'DESC';
-  const sql = `SELECT * FROM requests ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY ${col} ${dir}`;
+  // limit/offset are already validated numbers from the service; still passed as
+  // parameters (never string-concatenated) to keep the query safe.
+  let sql = `SELECT * FROM requests ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY ${col} ${dir}`;
+  if (limit !== undefined && limit !== null) { params.push(limit); sql += ` LIMIT $${params.length}`; }
+  if (offset) { params.push(offset); sql += ` OFFSET $${params.length}`; }
   const { rows } = await pool.query(sql, params);
   return rows;
 }

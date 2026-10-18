@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
-    "test": "node --test",
+    "test": "node --test --test-concurrency=1",
     "db:setup": "node scripts/db-setup.js",
     "seed": "node scripts/seed.js",
     "lint": "eslint src scripts",

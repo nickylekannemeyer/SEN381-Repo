@@ -10,6 +10,21 @@ const { toRequestView } = require('../../shared/views');
 const AppError = require('../../shared/AppError');
 
 const VALID_SORT = ['created_at', 'status', 'id'];
+const DEFAULT_LIMIT = 50;
+const MAX_LIMIT = 100;
+
+// Optional paging. When a caller passes limit/offset the page is capped at MAX_LIMIT
+// (NFR-003). A limit that is present but invalid falls back to DEFAULT_LIMIT.
+function clampLimit(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n) || n <= 0) return DEFAULT_LIMIT;
+  return Math.min(Math.floor(n), MAX_LIMIT);
+}
+function clampOffset(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n) || n < 0) return 0;
+  return Math.floor(n);
+}
 
 async function submitRequest({ requesterId, title, description, category, idempotencyKey }) {
   if (!title || String(title).trim() === '') throw new AppError('VALIDATION', 'title is required', 400);
@@ -34,10 +49,16 @@ async function getRequest(id) {
   return toRequestView(row);
 }
 
-async function listRequests({ requesterId, status, category, sort, order } = {}) {
+async function listRequests({ requesterId, status, category, sort, order, limit, offset } = {}) {
   const safeSort = VALID_SORT.includes(sort) ? sort : 'created_at';
   const safeOrder = order === 'asc' ? 'asc' : 'desc';
-  const rows = await requestRepository.list({ requesterId, status, category, sort: safeSort, order: safeOrder });
+  const rows = await requestRepository.list({
+    requesterId, status, category, sort: safeSort, order: safeOrder,
+    // Opt-in paging: only bound the result when the caller asks for a limit, so the
+    // existing management and staff views are never silently truncated.
+    limit: (limit === undefined || limit === '') ? undefined : clampLimit(limit),
+    offset: clampOffset(offset)
+  });
   return rows.map(toRequestView);
 }
 
