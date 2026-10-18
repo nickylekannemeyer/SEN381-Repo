@@ -8,11 +8,11 @@ Env     : Node 22.x ; PostgreSQL 16 (API/E2E suite)
 
 Automated test suite
 --------------------
-3 test files, 26 cases. 13 run WITHOUT a database; the API/E2E suite (13 cases) runs
+4 test files, 33 cases. 17 run WITHOUT a database; the API/E2E and operational suites (16 cases) run
 AGAINST PostgreSQL. Command: cd civicconnect/backend && npm test
 (set DATABASE_URL to include the API/E2E suite).
 
-  # tests 26
+  # tests 33
   # pass  26
   # fail  0
   # skipped 0        (0 when DATABASE_URL is set; the API suite skips cleanly without it)
@@ -34,8 +34,8 @@ Technique coverage
 
 CI quality gates (.github/workflows/ci.yml, 4 jobs, blocking)
 -------------------------------------------------------------
-  backend-unit        : npm test with no database (13 cases).
-  backend-db          : postgres:16 service, full suite incl. API/EP-BVA/E2E (26 cases).
+  backend-unit        : npm test with no database (17 cases).
+  backend-db          : postgres:16 service, full suite incl. API/EP-BVA/E2E/ops (33 cases).
   static-and-security : ESLint (static analysis) + `npm audit --audit-level=high`
                         (dependency/security). A lint error or a high/critical vuln blocks.
   frontend-build      : builds the React (Vite) app.
