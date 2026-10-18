@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react';
 import { listRequests } from '../../shared/api/client.js';
 
 const STATUSES = ['Open', 'In Progress', 'Resolved', 'Closed'];
+const META = {
+  'Open': { icon: 'schedule', cls: 'blue', card: 'open-card' },
+  'In Progress': { icon: 'sync', cls: 'orange', card: '' },
+  'Resolved': { icon: 'check_circle', cls: 'green', card: 'resolved-card' },
+  'Closed': { icon: 'inventory_2', cls: 'yellow', card: '' },
+};
+const BADGE = { 'Open': 'badge-open', 'In Progress': 'badge-progress', 'Resolved': 'badge-resolved', 'Closed': 'badge-closed' };
 
 export default function ManagementReports() {
   const [requests, setRequests] = useState([]);
@@ -16,24 +23,49 @@ export default function ManagementReports() {
   const categories = [...new Set(requests.map((r) => r.category))];
 
   return (
-    <section>
-      <h2>Management overview</h2>
-      <label>Filter by category
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">All</option>{categories.map((c) => (<option key={c} value={c}>{c}</option>))}
-        </select>
-      </label>
-      <button onClick={load}>Refresh</button>
-      {error && <p className="error">{error}</p>}
-      <div className="counts">
-        {STATUSES.map((s) => (<span key={s} className="count">{s}: <strong>{counts[s]}</strong></span>))}
-        <span className="count">Overdue: <strong>{overdue.length}</strong></span>
+    <>
+      <div className="dashboard-header">
+        <div>
+          <h1>Management Overview</h1>
+          <p className="subtitle">Service requests by status and category.</p>
+        </div>
+        <div className="form-group" style={{ margin: 0, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <label style={{ margin: 0 }}>Category</label>
+          <select className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="">All</option>{categories.map((c) => (<option key={c} value={c}>{c}</option>))}
+          </select>
+          <button className="btn-secondary" onClick={load}>Refresh</button>
+        </div>
       </div>
-      <h3>Overdue requests</h3>
-      <ul className="cards">
-        {overdue.length === 0 && <li>None.</li>}
-        {overdue.map((r) => (<li key={r.id}><strong>#{r.id} — {r.title}</strong><div>Status: {r.status} · {r.category}</div></li>))}
-      </ul>
-    </section>
+      {error && <p className="error">{error}</p>}
+
+      <div className="metrics-grid">
+        {STATUSES.map((s) => (
+          <div key={s} className={`metric-card glass-panel ${META[s].card}`}>
+            <div className={`metric-icon ${META[s].cls}`}><span className="material-symbols-outlined">{META[s].icon}</span></div>
+            <div className="metric-data">
+              <span className="metric-label">{s}</span>
+              <span className="metric-value">{counts[s]}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="table-container glass-panel">
+        <div className="table-header"><h2 style={{ fontSize: 18 }}>Overdue requests ({overdue.length})</h2></div>
+        <table className="requests-table">
+          <thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Status</th></tr></thead>
+          <tbody>
+            {overdue.length === 0 && <tr><td colSpan={4}>None.</td></tr>}
+            {overdue.map((r) => (
+              <tr key={r.id}>
+                <td>#{r.id}</td><td>{r.title}</td><td>{r.category}</td>
+                <td><span className={`badge ${BADGE[r.status] || ''}`}>{r.status}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
